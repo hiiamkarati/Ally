@@ -551,7 +551,7 @@ $sidebar-width: 250px;
 }
 .add-tool-section {
   margin: 2rem auto;
-  max-width: 600px;
+  max-width: 150px;
   background: #fff;
   padding: 1.5rem 2rem;
   border-radius: 1rem;
@@ -767,6 +767,7 @@ $sidebar-width: 250px;
       &.secondary {
         background: #f3f4f6;
         color: #374151;
+        width: 100px;
 
         &:hover {
           background: #e5e7eb;
