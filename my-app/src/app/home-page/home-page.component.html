@@ -1,7 +1,141 @@
-<div class="home-container">
-  <h1>Welcome to My Home Page 🎉</h1>
-  <p>This is a demo Angular component to test everything works fine.</p>
+<!-- home-page.component.html -->
+<div class="dashboard-container">
+  
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-nav">
+      <div class="nav-tabs">
+        <button class="nav-tab active">Apps</button>
+        <button class="nav-tab">Your work</button>
+        <button class="nav-tab">Discover</button>
+        <button class="nav-tab">Market</button>
+      </div>
+      
+      <div class="header-actions">
+        <div class="search-container">
+          <input 
+            type="text" 
+            placeholder="Search" 
+            class="search-input"
+            [(ngModel)]="searchQuery"
+            (input)="onSearchChange($event)">
+          <span class="search-icon">🔍</span>
+        </div>
+        <div class="user-avatar">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User">
+        </div>
+      </div>
+    </div>
 
-  <button (click)="sayHello()">Click Me</button>
-  <p *ngIf="message">{{ message }}</p>
+    <div class="platform-tabs">
+      <button class="platform-tab" [class.active]="activeTab === 'all'">All Apps</button>
+      <button class="platform-tab">Desktop</button>
+      <button class="platform-tab">Mobile</button>
+      <button class="platform-tab">Web</button>
+    </div>
+  </header>
+
+  <div class="dashboard-content">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Apps</h3>
+        <ul class="sidebar-menu">
+          <li *ngFor="let category of categories" 
+              [class.active]="category.isActive"
+              (click)="setActiveCategory(category.id)">
+            <span class="menu-icon">{{ category.icon }}</span>
+            <span class="menu-text">{{ category.name }}</span>
+            <span class="menu-count">{{ category.count }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Fonts</h3>
+        <ul class="sidebar-menu">
+          <li *ngFor="let font of fonts">
+            <span class="menu-icon">{{ font.icon }}</span>
+            <span class="menu-text">{{ font.name }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Resource Links</h3>
+        <ul class="sidebar-menu">
+          <li *ngFor="let link of resourceLinks">
+            <span class="menu-icon">{{ link.icon }}</span>
+            <span class="menu-text">{{ link.name }}</span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Featured App Card -->
+      <div class="featured-card" [style.background]="featuredApp.gradient">
+        <div class="featured-content">
+          <div class="featured-icon">{{ featuredApp.icon }}</div>
+          <h2>{{ featuredApp.name }}</h2>
+          <p>{{ featuredApp.description }}</p>
+          <button class="cta-button" (click)="openApp(featuredApp)">
+            Start Free Trial
+          </button>
+        </div>
+        <div class="featured-illustration">
+          <div class="illustration-elements">
+            <div class="element element-1">🎨</div>
+            <div class="element element-2">📸</div>
+            <div class="element element-3">✨</div>
+            <div class="element element-4">🎯</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Installed Apps Section -->
+      <section class="apps-section">
+        <h3>Installed</h3>
+        <div class="apps-grid">
+          <div class="app-card" *ngFor="let app of installedApps">
+            <div class="app-icon">{{ app.icon }}</div>
+            <div class="app-info">
+              <h4>{{ app.name }}</h4>
+              <div class="app-status">
+                <span class="status-dot" [style.background-color]="getStatusColor(app.status)"></span>
+                <span class="status-text">{{ app.status }}</span>
+              </div>
+            </div>
+            <div class="app-actions">
+              <button *ngIf="app.status === 'update available'" 
+                      class="update-btn"
+                      (click)="updateApp(app)">
+                Update the App
+              </button>
+              <button class="open-btn" (click)="openApp(app)">Open</button>
+              <button class="menu-btn">⋯</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Apps in Plan Section -->
+      <section class="apps-section">
+        <h3>Apps in your plan</h3>
+        <div class="plan-apps-grid">
+          <div class="plan-app-card" *ngFor="let app of appsInPlan">
+            <div class="plan-app-icon">{{ app.icon }}</div>
+            <div class="plan-app-content">
+              <h4>{{ app.name }}</h4>
+              <p>{{ app.description }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
 </div>
