@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface AppItem {
   id: string;
@@ -139,7 +140,15 @@ export class HomePageComponent {
     { name: 'Trending Tools', icon: '🔥' }
   ];
 
+  constructor(private router: Router) {}
+
   setActiveCategory(categoryId: string): void {
+    if (categoryId === 'all') {
+      // Navigate to All Tools page
+      this.router.navigate(['/all-tools']);
+      return;
+    }
+    
     this.categories.forEach(cat => cat.isActive = cat.id === categoryId);
     this.activeTab = categoryId;
   }

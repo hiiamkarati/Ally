@@ -1,0 +1,187 @@
+<div class="all-tools-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <button class="back-button" (click)="goBack()">
+        <span class="back-icon">←</span>
+        Back to Home
+      </button>
+      <div class="view-controls">
+        <button class="view-toggle" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+          ⊞
+        </button>
+        <button class="view-toggle" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <h1 class="page-title">All Tools & Extensions</h1>
+    <p class="page-subtitle">Discover and manage your favorite tools, AI models, and Chrome extensions</p>
+
+    <!-- Search and Filter Bar -->
+    <div class="search-filter-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search tools and extensions..." [(ngModel)]="searchQuery"
+          (input)="onSearchChange($event)">
+      </div>
+
+      <select class="sort-select" [(ngModel)]="sortBy">
+        <option value="rating">Sort by Rating</option>
+        <option value="name">Sort by Name</option>
+        <option value="downloads">Sort by Downloads</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="content-layout">
+    <!-- Sidebar Categories -->
+    <aside class="categories-sidebar">
+      <h3>Categories</h3>
+      <ul class="categories-list">
+        <li *ngFor="let category of categories" class="category-item" [class.active]="category.isActive"
+          (click)="setCategory(category.id)">
+          <span class="category-icon">{{ category.icon }}</span>
+          <span class="category-name">{{ category.name }}</span>
+          <span class="category-count">{{ category.count }}</span>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Tools Grid/List -->
+    <main class="tools-content">
+      <div class="tools-header">
+        <h2>{{ getCurrentCategoryName() }}</h2>
+        <span class="tools-count">{{ filteredTools.length }} tools found</span>
+      </div>
+
+      <div class="tools-grid" [class.list-view]="viewMode === 'list'">
+        <div *ngFor="let tool of filteredTools" class="tool-card" [class.installed]="tool.status === 'installed'"
+          [class.trending]="tool.status === 'trending'">
+
+          <div class="tool-header">
+            <div class="tool-icon">{{ tool.icon }}</div>
+            <div class="tool-status" [style.background-color]="getStatusColor(tool.status)">
+              {{ tool.status }}
+            </div>
+          </div>
+
+          <div class="tool-info">
+            <h3 class="tool-name">{{ tool.name }}</h3>
+            <p class="tool-description">{{ tool.description }}</p>
+
+            <div class="tool-meta">
+              <div class="rating">
+                <span class="stars">⭐</span>
+                <span class="rating-value">{{ tool.rating }}</span>
+              </div>
+              <div class="downloads">{{ tool.downloads }} downloads</div>
+              <div class="size">{{ tool.size }}</div>
+            </div>
+          </div>
+
+          <div class="tool-actions">
+            <button class="action-button primary" [style.background-color]="getStatusColor(tool.status)"
+              (click)="handleToolAction(tool)">
+              {{ getStatusText(tool.status) }}
+            </button>
+
+            <button class="action-button secondary" [hidden]="!isToolInstalled(tool)">
+              ⚙️
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" [hidden]="filteredTools.length > 0">
+        <div class="empty-icon">🔍</div>
+        <h3>No tools found</h3>
+        <p>Try adjusting your search or filter criteria</p>
+      </div>
+
+      <!-- Add Tool Button -->
+      <div class="add-tool-section">
+        <button class="action-button primary" (click)="toggleAddForm()">
+          <span>+</span> Add New Tool
+        </button>
+      </div>
+
+      <!-- Modal Overlay -->
+      <div *ngIf="showAddForm" class="modal-overlay" (click)="toggleAddForm()">
+        <div class="modal" (click)="$event.stopPropagation()">
+          <!-- Header -->
+          <div class="modal-header">
+            <h2>Add New Tool</h2>
+            <button class="close-btn" (click)="toggleAddForm()">×</button>
+          </div>
+
+          <!-- Form -->
+          <div class="form-group">
+            <label for="toolName">Name:</label>
+            <input id="toolName" [(ngModel)]="newTool.name" placeholder="Enter tool name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="toolDescription">Description:</label>
+            <textarea id="toolDescription" [(ngModel)]="newTool.description" placeholder="Enter description"
+              required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="toolIcon">Icon (Emoji):</label>
+            <input id="toolIcon" [(ngModel)]="newTool.icon" placeholder="Enter emoji (e.g., 💬)" required>
+          </div>
+
+          <div class="form-group">
+            <label for="toolCategory">Category:</label>
+            <select id="toolCategory" [(ngModel)]="newTool.category" required>
+              <option *ngFor="let cat of categories" [value]="cat.id" [disabled]="cat.id === 'all'">
+                {{ cat.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="toolStatus">Status:</label>
+            <select id="toolStatus" [(ngModel)]="newTool.status" required>
+              <option value="installed">Installed</option>
+              <option value="available">Available</option>
+              <option value="trending">Trending</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="toolRating">Rating (0-5):</label>
+            <input id="toolRating" type="number" [(ngModel)]="newTool.rating" min="0" max="5" step="0.1"
+              placeholder="Enter rating" required>
+          </div>
+
+          <div class="form-group">
+            <label for="toolDownloads">Downloads:</label>
+            <input id="toolDownloads" [(ngModel)]="newTool.downloads" placeholder="Enter downloads (e.g., 10M+)"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="toolSize">Size:</label>
+            <input id="toolSize" [(ngModel)]="newTool.size" placeholder="Enter size (e.g., 2.3MB)" required>
+          </div>
+
+          <div class="form-group">
+            <label for="toolUrl">URL (optional):</label>
+            <input id="toolUrl" [(ngModel)]="newTool.url" placeholder="Enter URL (optional)">
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="form-actions">
+            <button class="action-button primary" (click)="addTool()">Save Tool</button>
+            <button class="action-button secondary" (click)="toggleAddForm()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
