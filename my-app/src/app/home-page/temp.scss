@@ -1,0 +1,141 @@
+.text-content {
+  .cta-buttons {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 5;
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+
+      .icon {
+        font-size: 1.15rem;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+      }
+
+      .label {
+        position: relative;
+        z-index: 2;
+        transition: all 0.3s ease;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        background: linear-gradient(135deg, #0077ff, #00c6ff);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: inherit;
+      }
+
+      &:active {
+        transform: scale(0.97);
+      }
+    }
+
+    .cta-primary {
+      background: #0077ff;
+      color: #fff;
+      border-color: #0077ff;
+      box-shadow: 0 6px 15px rgba(0, 119, 255, 0.3);
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #005fcc, #0077ff);
+        opacity: 0;
+        transition: all 0.3s ease;
+        border-radius: inherit;
+      }
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 119, 255, 0.4);
+        border-color: #005fcc;
+
+        &::after {
+          opacity: 1;
+        }
+
+        .icon {
+          transform: translate(4px, -4px) rotate(-10deg);
+          animation: float 1s ease-in-out infinite;
+        }
+
+        .label {
+          transform: translateX(-2px);
+        }
+      }
+    }
+
+    .cta-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #0077ff;
+      border-color: #0077ff;
+      box-shadow: 0 4px 12px rgba(0, 119, 255, 0.12);
+      backdrop-filter: blur(8px);
+
+      &:hover {
+        background: #e5f1ff;
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 119, 255, 0.25);
+        border-color: #0077ff;
+
+        .icon {
+          transform: translate(4px, -4px) rotate(-10deg);
+          animation: float 1s ease-in-out infinite;
+        }
+
+        .label {
+          transform: translateX(-2px);
+          color: #005fcc;
+        }
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(4px, -4px) rotate(-10deg);
+      }
+      50% {
+        transform: translate(4px, -8px) rotate(-5deg);
+      }
+    }
+
+    /* Ripple effect on click */
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 100%);
+      opacity: 0;
+      transform: scale(2);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .cta-btn:active::after {
+      opacity: 0.3;
+      transform: scale(0);
+      transition: transform 0s;
+    }
+  }
+}

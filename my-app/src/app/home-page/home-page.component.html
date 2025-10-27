@@ -1,7 +1,29 @@
-<div class="home-container">
-  <h1>Welcome to My Home Page 🎉</h1>
-  <p>This is a demo Angular component to test everything works fine.</p>
+<header class="hero-header">
+  <div class="nav-container">
+    <div class="logo">Prakriti Dwivedi<span class="logo-dot">.</span></div>
+    <nav class="nav-links">
+      <a *ngFor="let link of navLinks" [href]="link.url" class="nav-item">{{ link.name }}</a>
+    </nav>
+    <a href="{{ contactUrl }}" class="contact-btn">Contact <span>↑</span></a>
+  </div>
+  <div class="hero-content">
+    <div class="profile-image">
+      <img src="pk.jpg" alt="Prakriti Dwivedi" />
+    </div>
+    <div class="text-content">
+      <h1 class="name">Hi! I'm Prakriti Dwivedi<span class="logo-dot">.</span> 👋</h1>
+      <h2 class="title">Fullstack Web Developer<br>from Gujarat.</h2>
+      <div class="cta-buttons">
+        <a href="/experience" class="cta-btn cta-primary" aria-label="My Experience">
+          <span class="label">My Experience</span>
+          <i class="fas fa-briefcase icon"></i>
+        </a>
 
-  <button (click)="sayHello()">Click Me</button>
-  <p *ngIf="message">{{ message }}</p>
-</div>
+        <a href="/resume.pdf" class="cta-btn cta-secondary" aria-label="My Resume">
+          <span class="label">My resume</span>
+          <i class="fas fa-download icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
