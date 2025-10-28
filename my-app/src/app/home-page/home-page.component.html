@@ -1,8 +1,8 @@
-<header class="hero-header">
+<header class="hero-header" id="home">
   <div class="nav-container">
     <div class="logo">Prakriti Dwivedi<span class="logo-dot">.</span></div>
     <nav class="nav-links">
-      <a *ngFor="let link of navLinks" [href]="link.url" class="nav-item">{{ link.name }}</a>
+      <a *ngFor="let link of navLinks" [href]="link.url" class="nav-item" (click)="scrollToSection($event, link.url)">{{ link.name }}</a>
     </nav>
     <a href="{{ contactUrl }}" class="contact-btn">Contact <span>↑</span></a>
   </div>
@@ -14,11 +14,10 @@
       <h1 class="name">Hi! I'm Prakriti Dwivedi<span class="logo-dot">.</span> 👋</h1>
       <h2 class="title">Fullstack Web Developer<br>from Gujarat.</h2>
       <div class="cta-buttons">
-        <a href="/experience" class="cta-btn cta-primary" aria-label="My Experience">
+        <a href="#experience" class="cta-btn cta-primary" aria-label="My Experience" (click)="scrollToSection($event, '#experience')">
           <span class="label">My Experience</span>
           <i class="fas fa-briefcase icon"></i>
         </a>
-
         <a href="/resume.pdf" class="cta-btn cta-secondary" aria-label="My Resume">
           <span class="label">My resume</span>
           <i class="fas fa-download icon"></i>
@@ -27,3 +26,5 @@
     </div>
   </div>
 </header>
+
+<app-about-section></app-about-section>
