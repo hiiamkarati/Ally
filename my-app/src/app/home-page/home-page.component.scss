@@ -1,3 +1,5 @@
+@use './about-section.scss' as *;
+
 /* Theme variables */
 :root {
   // Light theme
@@ -122,12 +124,13 @@ body {
 /* theme toggle removed */
 
 .hero-header {
-  min-height: 100vh;
+  /* reduce hero height so About section appears sooner */
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background: var(--bg-primary);
-  padding: 0;
+  padding: 100px;
   position: relative;
   overflow: hidden;
   width: 100vw; // Ensure full viewport width
@@ -142,6 +145,14 @@ body {
     backdrop-filter: blur(10px);
     margin: 0;
     width: 100%; // Full width
+    position: fixed; /* keep navbar fixed to top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1400;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.06);
 
     .logo {
       font-size: 1.8rem;
@@ -221,6 +232,92 @@ body {
     }
   }
 
+  /* Hamburger button (hidden on larger screens) */
+  .hamburger {
+    display: none; /* shown on small screens via media query */
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    width: 44px;
+    height: 36px;
+    padding: 6px;
+    border: none;
+    background: transparent;
+    z-index: 1300;
+    cursor: pointer;
+
+    span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: var(--nav-text);
+      margin: 5px 0;
+      border-radius: 3px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    /* when aria-expanded is true, animate into an X */
+    &[aria-expanded="true"] {
+      span:first-child {
+        transform: translateY(8px) rotate(45deg);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-6px);
+      }
+      span:last-child {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
+
+  /* Mobile right-side sliding navigation */
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -110%;
+    width: 78%;
+    max-width: 340px;
+    height: 100vh;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.18);
+    transition: right 0.32s cubic-bezier(.2,.8,.2,1);
+    z-index: 1250;
+    padding: 72px 18px;
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+
+      .nav-item {
+        padding: 12px 14px;
+        border-radius: 8px;
+        color: var(--nav-text);
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 700;
+
+        &:hover {
+          background: rgba(0,0,0,0.04);
+        }
+      }
+
+      .mobile-contact {
+        margin-top: 12px;
+        display: inline-flex;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 12px;
+      }
+    }
+
+    &.open {
+      right: 0;
+    }
+  }
+
   .hero-content {
     display: flex;
     align-items: center;
@@ -229,6 +326,9 @@ body {
     padding: 60px 20px;
     text-align: center;
     width: 100%; // Full width
+
+  /* offset content so fixed navbar doesn't overlap */
+  padding-top: 80px;
 
     .profile-image {
       width: 250px;
@@ -503,6 +603,20 @@ body {
     border-width: 1.5px; // Adjust border thickness for smaller screens
     box-shadow: 0 0 8px rgba(107, 72, 255, 0.5); // Reduced glow on small screens
   }
+  /* show hamburger and hide desktop nav on very small screens */
+  .hamburger {
+    display: block;
+  }
+
+  .nav-container {
+    .nav-links {
+      display: none;
+    }
+
+    .contact-btn {
+      display: none;
+    }
+  }
 } 
 .cta-buttons {
   display: flex;
@@ -570,4 +684,10 @@ body {
       color: #111111;
     }
   }
+}
+.wave-gif {
+  width: 40px;         /* adjust size as you like */
+  height: auto;
+  vertical-align: middle; /* keeps image aligned with text */
+  margin-left: 8px;    /* little spacing from the text */
 }

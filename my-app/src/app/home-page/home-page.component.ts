@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, AfterViewInit, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AboutSectionComponent } from './about-section.component';
 
 interface AppItem {
   id: string;
@@ -25,43 +26,64 @@ interface Category {
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AboutSectionComponent],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit, AfterViewInit {
+  private isBrowser: boolean;
+
+  constructor(@Inject(PLATFORM_ID) platformId: object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+
   navLinks = [
-    { name: 'Home', url: '/' },
-    { name: 'About me', url: '/about' },
-    { name: 'Skills', url: '/skills' },
-    { name: 'Experience', url: '/experience' },
-    { name: 'Projects', url: '/projects' }
+    { name: 'Home', url: '#home' },
+    { name: 'About me', url: '#about' },
+    { name: 'Skills', url: '#skills' },
+    { name: 'Experience', url: '#experience' },
+    { name: 'Projects', url: '#projects' }
   ];
 
   contactUrl = '/contact';
+
+  scrollToSection(event: Event, sectionId: string) {
+    if (this.isBrowser) {
+      event.preventDefault();
+      const element = document.querySelector(sectionId);
+      if (element) {
+        const navContainer = document.querySelector('.nav-container') as HTMLElement;
+        const navHeight = navContainer?.offsetHeight || 0;
+        const targetPosition = element.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
 
   ngOnInit() {
     // No theme toggle - keep default styles
   }
 
   ngAfterViewInit() {
+    if (!this.isBrowser) return;
+
     // Custom cursor implementation
     const cursor = document.createElement('div');
     cursor.classList.add('custom-cursor');
     document.body.appendChild(cursor);
 
-    // Check if cursor is added to DOM
-    if (!document.querySelector('.custom-cursor')) {
-      console.error('Custom cursor element not added to DOM. Check JavaScript execution.');
-    }
-
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+      requestAnimationFrame(() => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+      });
     });
 
-  // Add hover effect for interactive elements
-  const hoverElements = document.querySelectorAll('a, .contact-btn, .profile-image, .logo, img, .nav-item, .cta-btn');
+    // Add hover effect for interactive elements
+    const hoverElements = document.querySelectorAll('a, .contact-btn, .profile-image, .logo, img, .nav-item, .cta-btn');
     hoverElements.forEach((el) => {
       el.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
