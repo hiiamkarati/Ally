@@ -1,22 +1,71 @@
 <section id="about" class="about-section">
   <div class="container">
     <p class="section-subtitle">Introduction</p>
-    <h2 class="section-title">About me</h2>
+    <!-- Big ABOUT ME banner moved here (after Introduction) -->
+    <div class="about-hero">
+      <div class="about-hero-inner">
+        <span class="about-hero-big">ABOUT ME</span>
+        <p class="about-hero-lead">I work with modern web technologies, machine learning tools and DevOps pipelines — building production-ready apps.</p>
+      </div>
+    </div>
     <div class="about-content">
-      <div class="about-text-container">
-        <div class="about-card learning-journey">
-          <div class="card-icon">
-            <i class="fas fa-graduation-cap"></i>
-          </div>
-          <h3>My Learning Journey</h3>
-          <p>
-            Full Stack development is been an inspiring and an endless learning journey in my life. I'm 
-            always exploring new technologies, refining my problem-solving skills, and pushing the 
-            boundaries to increase my efficiency and productivity.
-          </p>
+        <div class="about-intro centered">
+        <p>
+          Hi — I'm Prakriti, a Full Stack Web Developer passionate about building fast, accessible,
+          and delightful web experiences. I focus on clean UI, pragmatic architecture and
+          shipping production-ready features. I enjoy learning new tools, contributing to open-source,
+          and turning ideas into polished products.
+        </p>
+        <div class="social-icons" aria-label="social links">
+          <a href="https://www.linkedin.com/" aria-label="LinkedIn" (click)="openExternal('https://www.linkedin.com/')">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:prakriti.ce@gmail.com" aria-label="Email" (click)="$event.preventDefault(); openExternal('mailto:prakriti.ce@gmail.com')">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://github.com/" aria-label="GitHub" (click)="openExternal('https://github.com/')">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#projects" aria-label="Projects" (click)="scrollToSection($event, '#projects')">
+            <i class="fas fa-project-diagram"></i>
+          </a>
         </div>
+        <div class="skills-list" aria-hidden="false">
+          <span class="skill">JavaScript</span>
+          <span class="skill">TypeScript</span>
+          <span class="skill">Angular</span>
+          <span class="skill">Node.js</span>
+          <span class="skill">HTML & CSS</span>
+          <span class="skill">SQL</span>
+        </div>
+      </div>
+      
+      <div class="cards-with-image">
+        <div class="about-image">
+          <div class="image-container">
+            <img src="pk.jpg" alt="Profile" class="profile-img">
+            <div class="background-shape"></div>
+            <div class="experience-badge">
+              <span class="badge-text">Full Stack</span>
+              <span class="badge-years">Developer</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-text-container">
+          <div class="about-card learning-journey">
+            <div class="card-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>My Learning Journey</h3>
+            <p>
+              Full Stack development is been an inspiring and an endless learning journey in my life. I'm 
+              always exploring new technologies, refining my problem-solving skills, and pushing the 
+              boundaries to increase my efficiency and productivity.
+            </p>
+          </div>
 
-        <div class="about-card problem-solving">
+          <div class="about-card problem-solving">
           <div class="card-icon">
             <i class="fas fa-lightbulb"></i>
           </div>
@@ -28,16 +77,36 @@
           </p>
         </div>
       </div>
-      
-      <div class="about-image">
-        <div class="image-container">
-          <img src="assets/profile-image.jpg" alt="Profile" class="profile-img">
-          <div class="background-shape"></div>
-          <div class="experience-badge">
-            <span class="badge-text">Full Stack</span>
-            <span class="badge-years">Developer</span>
-          </div>
-        </div>
+      </div>
+    </div>
+    <!-- Skills & Expertise section -->
+    <div id="skills" class="skills-expertise">
+      <p class="section-subtitle">My strengths</p>
+      <h3 class="skills-title">Skills and expertise</h3>
+      <div class="tech-grid">
+        <span class="tech-pill"><i class="fab fa-python"></i> Python</span>
+        <span class="tech-pill"><i class="fab fa-js"></i> JavaScript</span>
+        <span class="tech-pill"><i class="fab fa-node"></i> Node.js</span>
+        <span class="tech-pill">Django</span>
+        <span class="tech-pill"><i class="fab fa-jenkins"></i> Jenkins</span>
+        <span class="tech-pill">Deep Learning</span>
+        <span class="tech-pill">TensorFlow / PyTorch</span>
+        <span class="tech-pill">Metabase</span>
+        <span class="tech-pill">ElevenLabs</span>
+      </div>
+      <div class="skills-grid">
+        <span class="skill-pill">React.js</span>
+        <span class="skill-pill">Next.js</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">TypeScript</span>
+        <span class="skill-pill">Tailwind CSS</span>
+        <span class="skill-pill">Node.js</span>
+        <span class="skill-pill">Express.js</span>
+        <span class="skill-pill">MongoDB</span>
+        <span class="skill-pill">MySQL</span>
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">Socket.io</span>
       </div>
     </div>
   </div>

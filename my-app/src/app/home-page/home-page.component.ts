@@ -52,7 +52,13 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       event.preventDefault();
       const element = document.querySelector(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        const navContainer = document.querySelector('.nav-container') as HTMLElement;
+        const navHeight = navContainer?.offsetHeight || 0;
+        const targetPosition = element.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
       }
     }
   }
