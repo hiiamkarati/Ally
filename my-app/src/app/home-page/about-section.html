@@ -109,5 +109,212 @@
         <span class="skill-pill">Socket.io</span>
       </div>
     </div>
+    <!-- Experience / Professional Journey (inserted below Skills) -->
+    <section id="experience" class="experience-section">
+      <div class="container">
+        <p class="section-subtitle">Professional Journey</p>
+        <h2 class="section-title">My Experience</h2>
+        <p class="experience-lead">
+          My journey through internships and projects has shaped my professional outlook and practical
+          skills. I’ve worked on full-stack web applications, contributed to data-driven features,
+          and collaborated with cross-functional teams to deliver production-ready software. Below are
+          highlights from notable internships and projects that showcase my growth, responsibilities,
+          and impact.
+        </p>
+
+        <div class="experience-cards two-column">
+          <div class="card-col">
+            <div class="experience-card" (mouseenter)="setHover(1)" (mouseleave)="clearHover()">
+              <div class="current-badge">Current</div>
+              <h3>Full Stack Engineer</h3>
+              <div class="company">Technovate Solutions</div>
+
+              <div class="meta">
+                <span class="meta-pill">Full-time</span>
+                <span class="meta-pill">2025 — Present</span>
+                <span class="meta-pill">Remote</span>
+              </div>
+
+              <ul class="highlights">
+                <li>
+                  Working across frontend, backend and AI integrations — building production features
+                  using Angular, .NET (C#) and Python. Responsible for UI, APIs, DB design and
+                  deploying ML-enabled features.
+                </li>
+                <li>
+                  Implemented data workflows and analytics with Metabase and Python UDFs; built
+                  model orchestration pipelines using LangFlow and fine-tuned models via Ollama
+                  (Qwen 2.5 on GPU T4) for tailored NLP features.
+                </li>
+                <li>
+                  Developed an ElevenLabs-based voice agent for interactive user experiences and
+                  integrated CI/CD with Jenkins; containerized workloads and managed MySQL-backed
+                  services.
+                </li>
+              </ul>
+
+              <div class="skill-chips">
+                <span class="chip">Angular</span>
+                <span class="chip">.NET / C#</span>
+                <span class="chip">Python</span>
+                <span class="chip">Jenkins</span>
+                <span class="chip">MySQL</span>
+                <span class="chip">Metabase</span>
+                <span class="chip">LangFlow</span>
+                <span class="chip">Ollama (Qwen 2.5)</span>
+                <span class="chip">ElevenLabs</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-col">
+            <div class="timeline-line"></div>
+            <!-- car GIF will move along the timeline; place before dots so it appears over the line -->
+            <img src="car.png" alt="car" class="timeline-car" [style.top]="carTop" />
+            <div class="timeline-dot" [class.active]="hoverIndex === 1" (click)="setHover(1)"></div>
+            <div class="timeline-dot" [class.active]="hoverIndex === 2" (click)="setHover(2)"></div>
+          </div>
+
+          <div class="card-col">
+            <div class="experience-card" (mouseenter)="setHover(2)" (mouseleave)="clearHover()">
+              <h3>Software Engineering Intern</h3>
+              <div class="company">Technovate Solution (Internship)</div>
+
+              <div class="meta">
+                <span class="meta-pill">Internship</span>
+                <span class="meta-pill">Jan 2025 — Jun 2025</span>
+                <span class="meta-pill">Hybrid / Remote</span>
+              </div>
+
+              <ul class="highlights">
+                <li>
+                  Built a flexible query-builder application (SQL + UI) that allows users to select a
+                  database, choose tables and columns, and visually compose SQL queries which are
+                  then generated and executed securely.
+                </li>
+                <li>
+                  Implemented multi-database support so users can connect to several database engines
+                  and run cross-database queries; added support for JOINs, GROUP BY and aggregated
+                  charts driven by generated SQL. Queries can be shared via unique links and saved
+                  with multiple conditions.
+                </li>
+                <li>
+                  Developed front-end features in TypeScript to allow saving/sharing generated queries,
+                  adding multiple filter conditions, and visualizing results as charts; backend logic
+                  and data processing used Python for safe query execution and result transformation.
+                </li>
+              </ul>
+
+              <div class="skill-chips">
+                <span class="chip">SQL</span>
+                <span class="chip">Python</span>
+                <span class="chip">TypeScript</span>
+                <span class="chip">Query Builder</span>
+                <span class="chip">Joins</span>
+                <span class="chip">GROUP BY</span>
+                <span class="chip">Charts</span>
+                <span class="chip">Multi-DB</span>
+                <span class="chip">Shareable Queries</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="work-together-container">
+          <button class="work-together-btn" (click)="scrollToSection($event, '#contact')">
+            Let's work together
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="text-center">
+          <h3 class="section-subtitle">Connect with me</h3>
+          <h2 class="section-title">Get in touch</h2>
+          <p class="contact-lead text-visible">
+            I'd love to hear from you! If you have any questions, project ideas, or collaboration
+            opportunities, please reach out using the form below.
+          </p>
+        </div>
+
+        <div class="contact-form-container">
+          <form class="contact-form" (ngSubmit)="onSubmit()">
+            <div class="form-fields">
+              <div class="top-row">
+                <div class="form-group">
+                  <label for="name">Your Name</label>
+                  <input type="text" id="name" [(ngModel)]="formData.name" name="name" placeholder="Prakriti Dwivedi" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Your Email</label>
+                  <input type="email" id="email" [(ngModel)]="formData.email" name="email" placeholder="prakriti@example.com" required>
+                </div>
+              </div>
+              
+              <div class="form-group message-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" [(ngModel)]="formData.message" name="message" placeholder="What would you like to discuss?" required></textarea>
+              </div>
+
+              <button type="submit" class="send-message-btn">
+                Send Message
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+            
+            <div class="form-decorations">
+              <img src="link.png" alt="" class="link-decoration" aria-hidden="true">
+              <img src="groundhog.png" alt="" class="ground-hog-decoration" aria-hidden="true">
+            </div>
+          </form>
+        </div>
+
+        <!-- Contact Info Cards -->
+        <div class="contact-info-cards">
+          <!-- Email Card -->
+          <div class="contact-card">
+            <div class="card-icon email">
+              <img src="link.png" alt="" aria-hidden="true">
+            </div>
+            <h3>Email</h3>
+            <p>Feel free to email me anytime!</p>
+            <a href="mailto:prakriti.ce&#64;gmail.com" class="contact-link">prakriti.ce&#64;gmail.com</a>
+          </div>
+
+          <!-- Location Card -->
+          <div class="contact-card">
+            <div class="card-icon location">
+              <img src="placeholder.png" alt="" aria-hidden="true">
+            </div>
+            <h3>Location</h3>
+            <p>Bopal, Gujarat</p>
+            <span class="location-text">India</span>
+          </div>
+
+          <!-- Connect Card -->
+          <div class="contact-card">
+            <div class="card-icon connect">
+              <img src="groundhog.png" alt="" aria-hidden="true">
+            </div>
+            <h3>Connect</h3>
+            <div class="social-links">
+              <a href="#" class="social-link github" aria-label="GitHub Profile">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="social-link linkedin" aria-label="LinkedIn Profile">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="social-link twitter" aria-label="Twitter Profile">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
