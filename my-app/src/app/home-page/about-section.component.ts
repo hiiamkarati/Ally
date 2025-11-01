@@ -49,13 +49,19 @@ export class AboutSectionComponent {
   };
 
   onSubmit() {
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', this.formData);
-    // Reset form after submission
-    this.formData = {
-      name: '',
-      email: '',
-      message: ''
-    };
+    // Minimal client-side send using the user's mail client (mailto).
+    // This opens the user's default mail app with the form data prefilled.
+    // Pros: no backend needed. Cons: depends on user's mail client and won't work for users who rely on webmail without a handler.
+    const recipient = 'prakriti.ce@gmail.com';
+    const subject = `Contact from ${this.formData.name || 'Website Visitor'}`;
+    const body = `Name: ${this.formData.name}\nEmail: ${this.formData.email}\n\nMessage:\n${this.formData.message}`;
+    const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Open mail client
+    window.location.href = mailto;
+
+    // Optionally clear the form after a short delay so the mail client can open
+    setTimeout(() => {
+      this.formData = { name: '', email: '', message: '' };
+    }, 500);
   }
 }
