@@ -4,7 +4,7 @@
     <nav class="nav-links">
       <a *ngFor="let link of navLinks" [href]="link.url" class="nav-item" (click)="scrollToSection($event, link.url)">{{ link.name }}</a>
     </nav>
-    <a href="{{ contactUrl }}" class="contact-btn">Contact <span>↑</span></a>
+    <a href="#contact" class="contact-btn">Contact <span>↑</span></a>
   </div>
   <div class="hero-content">
     <div class="profile-image">
