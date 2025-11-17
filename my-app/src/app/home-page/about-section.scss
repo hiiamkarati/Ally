@@ -1051,7 +1051,6 @@ html {
     position: absolute;
     width: 250px;
     height: 250px;
-    background: linear-gradient(135deg, #6366F1 0%, #9747FF 100%);
     border-radius: 50%;
     filter: blur(80px);
     opacity: 0.1;
@@ -1361,7 +1360,7 @@ html {
         font-size: 0.95rem;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
-        width: 100%;
+        width: 70%;
 
         &:hover {
           background: rgba(255, 255, 255, 0.05);
